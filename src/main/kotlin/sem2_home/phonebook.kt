@@ -27,14 +27,14 @@ fun main(){
         var command = readCommand()
         println("    Выполняется команда \u001B[94m" + command + "\u001B[0m...")
         when (command){
-            is CmdExit -> CmdExit.run()
+            is CmdExit -> CmdExit.run() // вариант command.run() не работает
 
             is CmdHelp -> CmdHelp.run()
 
             is CmdAdd -> {
-                var cmdAdd = CmdAdd()
-                cmdAdd.parseParams()
-                val newPerson: Person? = cmdAdd.createRecord()
+                //var cmdAdd = CmdAdd()
+                command.parseParams() // тут компилятор понимает, какой класс передан
+                val newPerson: Person? = command.createRecord()
                 if (newPerson != null)
                     newPerson.show()
                 else
@@ -124,6 +124,7 @@ exit
 Введите команду > exit
     Выполняется команда exit...
     Выход из программы ...
+
 
  */
 
