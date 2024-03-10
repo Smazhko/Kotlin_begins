@@ -47,20 +47,20 @@ sealed interface Parameter {
     fun isValid(param: String): Boolean
 }
 
-object Name: Parameter {
+data object Name: Parameter {
     override fun isValid(param: String): Boolean {
         return param.matches(Regex("""[\p{L}\p{N}_\s-]+"""))
     }
 
 }
 
-object Phone: Parameter {
+data object Phone: Parameter {
     override fun isValid(param: String): Boolean {
         return param.matches(Regex("""^\+?\d+[\d-]*${'$'}"""))
     }
 }
 
-object Email: Parameter {
+data object Email: Parameter {
     override fun isValid(param: String): Boolean {
         return param.matches(Regex("""^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,}${'$'}"""))
     }

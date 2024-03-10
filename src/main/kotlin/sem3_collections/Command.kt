@@ -94,32 +94,34 @@ class CmdAdd(private var request: String) : Command {
 
         var i = 0
         while (i < params.size) {
-            when (params[i]) {
+            val currCmd = params[i]
+            val currValue = params[i + 1]
+            when (currCmd) {
                 ADD_CMD -> {
-                    if (Name.isValid(params[i + 1])) {
-                        newPerson = Person(params[i + 1].replace("_", " "))
+                    if (Name.isValid(currValue)) {
+                        newPerson = Person(currValue.replace("_", " "))
                     }
                     else {
-                        println("\u001B[31m    Некорректный формат имени\u001B[0m")
-                        break
+                        println("\u001B[31m    Некорректный формат имени \"$currValue\"\u001B[0m")
+                        return null
                     }
                     i++
                 }
 
                 PHONE_CMD -> {
-                    if (Phone.isValid(params[i + 1]))
-                        newPerson.phones.add(params[i + 1])
+                    if (Phone.isValid(currValue))
+                        newPerson.phones.add(currValue)
                     else {
-                        println("\u001B[31m    Некорректный формат номера телефона\u001B[0m")
+                        println("\u001B[31m    Некорректный формат номера телефона \"$currValue\".\u001B[0m")
                     }
                     i++
                 }
 
                 EMAIL_CMD -> {
-                    if (Email.isValid(params[i + 1]))
-                        newPerson.emails.add(params[i + 1])
+                    if (Email.isValid(currValue))
+                        newPerson.emails.add(currValue)
                     else {
-                        println("\u001B[31m    Некорректный формат адреса эл. почты\u001B[0m")
+                        println("\u001B[31m    Некорректный формат адреса эл. почты \"$currValue\"\u001B[0m")
                     }
                     i++
                 }
