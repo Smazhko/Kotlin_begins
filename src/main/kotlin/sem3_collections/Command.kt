@@ -40,8 +40,8 @@ class CmdHelp : Command {
              result.append("       - если вы хотите добавить сразу несколько номеров или email,\n")
              result.append("         перед каждым параметром используйте соответствующую команду:\n")
              result.append("         add <Имя> phone <Номер телефона> phone <Номер телефона>;\n")
-             result.append("       - команда show выдаст только первый результат, ТОЧНО совпадающий с запросом;")
-             result.append("       - showall выводит все записи из телефонной книги.\n\u001B[0m") // возврат к обычному
+             result.append("       - команда show выдаст только первый результат, ТОЧНО совпадающий с запросом;\n")
+             result.append("       - showall выводит все записи из телефонной книги.\u001B[0m") // возврат к обычному
              println(result)
          }
      }
@@ -61,7 +61,6 @@ object Name: Parameter {
     override fun isValid(param: String): Boolean {
         return param.matches(Regex("""[\p{L}\p{N}_\s-]+"""))
     }
-
 }
 
 
@@ -135,18 +134,25 @@ class CmdAdd(private var request: String) : Command {
 
 class CmdShow(private val dataBase: MutableList<Person>, private val request: String): Command {
     fun run() {
-        val name = request.split(" ")[1]
-        if (dataBase.any { person -> person.name == name })
-            println(dataBase.find { person -> person.name == name }.toString())
+        if (request.split(" ").size > 1) {
+            val name = request.split(" ")[1].replace("_", " ")
+            if (dataBase.any { person -> person.name == name })
+                println(dataBase.find { person -> person.name == name }.toString())
+            else
+                println("\u001B[31m    <<  !  >> Не могу найти \"\u001B[94m$name\u001B[31m\". Поиск имени в точном соответствии с запросом ничего не дал.\u001B[0m")
+        }
         else
-            println("\u001B[31m    <<  !  >> Не могу найти \"\u001B[94m$name\u001B[31m\". В базе отсутствует такая запись.\u001B[0m")
+            println("\u001B[31m    <<  !  >> Ввод команды некорректный - команда введена без параметров.")
     }
 }
 
 
 class CmdShowAll(private val dataBase: MutableList<Person>): Command {
     fun run() {
-        println(dataBase.toString().replace(Regex("""[\[\],]"""), ""))
+        if (dataBase.isEmpty())
+            println("\u001B[31m    <<  !  >> База пуста, выводить нечего.")
+        else
+            println(dataBase.toString().replace(Regex("""[\[\],]"""), ""))
     }
 }
 

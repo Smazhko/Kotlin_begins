@@ -15,6 +15,6 @@ data class Person(var name: String){
             if (emails.isNotEmpty())
                 result += "    e-mail: $emails\n"
         }
-        return result
+        return result + "-".repeat(30)
     }
 }

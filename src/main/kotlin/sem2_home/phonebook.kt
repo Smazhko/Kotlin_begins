@@ -40,6 +40,8 @@ fun main(){
                 else
                     println("\u001B[31m    <<  !  >> Person is not initialized yet.\u001B[0m")
             }
+
+            is CmdShow -> TODO()
         }
     }
 }
@@ -48,15 +50,16 @@ fun readCommand(): Command {
     print("\u001B[93mВведите команду > \u001B[0m")
     var userRequest = readlnOrNull();
     if (userRequest != null) {
-        when {
-            userRequest.trim().lowercase() == "exit" -> return CmdExit()
-
-            userRequest.trim().lowercase() == "help" -> return CmdHelp()
-
-            userRequest.trim().lowercase().startsWith("add") -> {
+        when (userRequest.split(" ").firstOrNull()){
+            "exit" -> return CmdExit()
+            "help" -> {
+                return CmdHelp()
+            }
+            "add" -> {
                 CmdAdd.request = userRequest
                 return CmdAdd()
             }
+            "show" -> return CmdShow()
         }
     }
     return CmdHelp()

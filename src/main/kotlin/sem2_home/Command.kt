@@ -135,4 +135,8 @@ class CmdAdd : Command {
     }
 }
 
+class CmdShow():Command{
+    fun run() = println("Последняя запись в базе: ...")
+}
+
 

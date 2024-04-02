@@ -1,5 +1,25 @@
 [{
+  "name": "John Doe",
+  "phones": ["123-456-7890","456-789-0123"],
+  "emails": ["john@example.com","john.doe@example.com"]
+}, {
   "name": "Alice Smith",
   "phones": ["987-654-3210"],
   "emails": ["alice@example.com"]
+}, {
+  "name": "Константин Рыжов",
+  "phones": ["+7-985-577-52-74","+7-999-123-25-48"],
+  "emails": ["kryzh@rabota.me","kryzh@mail.ru"]
+}, {
+  "name": "Вальдемар Ростовский",
+  "phones": ["8(952)9521515","35-54-78"],
+  "emails": ["volondemort@biz.tv"]
+}, {
+  "name": "Ремонт",
+  "phones": ["+7(952)258-78-96","35-54-78","78-54-52"],
+  "emails": []
+}, {
+  "name": "РемонтАвто",
+  "phones": ["8(900)2000-600"],
+  "emails": []
 }]
